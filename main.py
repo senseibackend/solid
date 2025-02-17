@@ -1,4 +1,5 @@
 from task_manager import TaskManager
+from task_storage import TaskStorage
 
 # Ejemplo de uso
 
@@ -17,4 +18,5 @@ tm.complete_task(2)
 # Paso 2. Proceso de guardado.
 # ================================================
 # Guardamos en archivo de texto
-tm.save(format="txt")
+task_storage = TaskStorage("tasks.txt")
+task_storage.save(tm.get_tasks(), format="txt")
