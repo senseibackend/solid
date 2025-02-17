@@ -34,3 +34,10 @@ class CSVFileStorage(IFileStorage):
             writer.writerow(["id", "name", "user", "completed"])
             for task in tasks:
                 writer.writerow([task.id, task.name, task.user, task.completed])
+
+class SQLiteDatabaseStorage(IFileStorage):
+    """
+    Guarda las tareas en una base de datos tipo archivo.
+    """
+    def save(self, tasks: List[Task]) -> None:
+        print(f"Guardando en base de datos {self.filename}...")

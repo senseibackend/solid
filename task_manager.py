@@ -1,10 +1,10 @@
 from typing import List
 from task import Task
-from task_storage import TextFileStorage, CSVFileStorage
+from task_storage import TextFileStorage, CSVFileStorage, SQLiteDatabaseStorage
 
 class TaskManager:
     """
-    Gestiona las tareas y guarda las tareas en un archivo.
+    Gestiona las tareas y guarda las tareas en un almacenamiento.
     """
     def __init__(self) -> None:
         self.tasks: List[Task] = []
@@ -22,8 +22,5 @@ class TaskManager:
     def get_tasks(self) -> List[Task]:
         return self.tasks
     
-    def save(self, storage: TextFileStorage | CSVFileStorage) -> None:
-        """
-        Guarda las tareas en el archivo de texto o CSV.
-        """
+    def save(self, storage: TextFileStorage | CSVFileStorage | SQLiteDatabaseStorage) -> None:
         storage.save(self.tasks)
