@@ -1,14 +1,15 @@
 from typing import List
 from task import Task
-from task_storage import IDBStorage, IFileStorage
+from task_storage import IStorage
 
 class TaskManager:
     """
     Gestiona las tareas y guarda las tareas en un almacenamiento.
     """
-    def __init__(self) -> None:
+    def __init__(self, storage: IStorage) -> None:
         self.tasks: List[Task] = []
         self.next_id: int = 1
+        self.storage = storage
     
     def add_task(self, task_name: str, user: str) -> None:
         self.tasks.append(Task(self.next_id, task_name, user))
@@ -22,5 +23,5 @@ class TaskManager:
     def get_tasks(self) -> List[Task]:
         return self.tasks
     
-    def save(self, storage: IDBStorage | IFileStorage) -> None:
-        storage.save(self.tasks)
+    def save(self) -> None:
+        self.storage.save(self.tasks)

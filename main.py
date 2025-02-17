@@ -6,7 +6,9 @@ from task_storage import TextFileStorage
 # ================================================
 # Paso 1. Gestionamos las tareas
 # ================================================
-tm = TaskManager()
+storage = TextFileStorage("tasks.txt")
+tm = TaskManager(storage)
+
 tm.add_task("Aprender SOLID", "Juan")
 tm.add_task("Escribir documentación", "María")
 tm.add_task("Revisar código", "Pedro")
@@ -18,5 +20,4 @@ tm.complete_task(2)
 # Paso 2. Proceso de guardado.
 # ================================================
 # Guardamos en archivo de texto
-storage = TextFileStorage("tasks.txt")
-tm.save(storage)
+tm.save()
