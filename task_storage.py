@@ -3,16 +3,28 @@ import csv
 from typing import List
 from task import Task
 
-class IFileStorage(ABC):
+class IStorage(ABC):
+    """
+    Interfaz para guardar las tareas.
+    """
+    @abstractmethod
+    def save(self, tasks: List[Task]) -> None:
+        pass
+
+class IFileStorage(IStorage):
     """
     Guarda las tareas en un archivo.
     """
-
     def __init__(self, filename: str) -> None:
         self.filename = filename
 
+class IDBStorage(IStorage):
+    """
+    Guarda las tareas en una base de datos.
+    """
+    
     @abstractmethod
-    def save(self, tasks: List[Task]) -> None:
+    def health_check(self) -> bool:
         pass
 
 class TextFileStorage(IFileStorage):
@@ -41,3 +53,17 @@ class SQLiteDatabaseStorage(IFileStorage):
     """
     def save(self, tasks: List[Task]) -> None:
         print(f"Guardando en base de datos {self.filename}...")
+
+class MySQLDatabaseStorage(IDBStorage):
+    """
+    Guarda las tareas en una base de datos tipo MySQL.
+    """
+    
+    def save(self, tasks: List[Task]) -> None:
+        print(f"Guardando en base de datos MYSQL...")
+            
+    def health_check(self) -> bool:
+        """
+        Verifica si el motor de la base de datos está funcionando.
+        """
+        return True

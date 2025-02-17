@@ -1,6 +1,6 @@
 from typing import List
 from task import Task
-from task_storage import TextFileStorage, CSVFileStorage, SQLiteDatabaseStorage
+from task_storage import IDBStorage, IFileStorage
 
 class TaskManager:
     """
@@ -22,5 +22,5 @@ class TaskManager:
     def get_tasks(self) -> List[Task]:
         return self.tasks
     
-    def save(self, storage: TextFileStorage | CSVFileStorage | SQLiteDatabaseStorage) -> None:
+    def save(self, storage: IDBStorage | IFileStorage) -> None:
         storage.save(self.tasks)
